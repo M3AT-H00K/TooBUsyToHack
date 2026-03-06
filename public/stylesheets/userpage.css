@@ -322,3 +322,47 @@ label.custom-file-upload:active {
     color: aqua;
     transform: scale(1.05);
 }
+
+.leaderboard {
+  width: 90%;
+  margin: auto;
+  border-collapse: collapse;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  box-shadow: 0 0 15px aqua;
+}
+
+.leaderboard th,
+.leaderboard td {
+  border: 2px solid aqua;
+  padding: 12px;
+  background-color: black;   /* all cells black */
+  color: aqua;
+}
+
+.leaderboard th {
+  background-color: black;    /* header row navy, still dark */
+  color: aqua;
+}
+
+.title {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-family: 'Press Start 2P', cursive;
+  color: aqua;
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns: auto 1fr; /* left column auto, right column fills */
+  gap: 40px;                       /* spacing between columns */
+  align-items: start;    
+  margin-top: 120px;           /* align both at the top */
+}
+
+.button-column {
+  display: flex;
+  flex-direction: column;           /* stack buttons vertically */
+  align-items: flex-start;          /* align buttons to left edge */
+}

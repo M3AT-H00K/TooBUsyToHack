@@ -55,13 +55,25 @@ router.post('/user', async function (req, res) {
 router.get('/user/:id', async (req, res) => {
   const db = await connectToDB();
   try {
-    const profile = await db.collection("userprofiles").findOne({ id: parseInt(req.params.id) });
+    const userid = parseInt(req.params.id);
+
+    // Get the current user's profile
+    const profile = await db.collection("userprofiles").findOne({ id: userid });
+
+    // Step 1: Fetch all documents without sorting
+    const students = await db.collection("userprofiles").find({}).toArray();
+
+    // Step 2: Sort in Node.js (default tie-breaking: medals only)
+    const topStudents = students
+      .sort((a, b) => b.medals - a.medals) // highest medals first
+      .slice(0, 5);                        // keep top 5
 
     res.render('userpage', {
       userid: profile.id,
       department: profile.department,
       year_of_study: profile.year_of_study,
-      medals: profile.medals
+      medals: profile.medals,
+      topStudents
     });
   } finally {
     await db.client.close();

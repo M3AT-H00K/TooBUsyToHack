@@ -11,9 +11,36 @@
 </head>
 <body data-userid="<%= userid %>">
     <h2 class ="type-writer"> Welcome, <%= userid %></h2>
+    <div class="content-layout">
+    <!-- Left column: buttons -->
+    <div class="button-column">
+        <button class="btn-tasks" id="taskButton">Tasks</button>
+        <button class="btn-rivals" id="rivalButton">Rival</button>
+    </div>
 
-    <button class="btn-tasks" id="taskButton"> Tasks </button>
-    <button class="btn-rivals" id="rivalButton"> Rival </button>
+    <!-- Right column: leaderboard -->
+    <div class="leaderboard-column">
+        <h2 class="title">Leaderboard</h2>
+        <table class="leaderboard">
+        <thead>
+            <tr>
+            <th>Rank</th>
+            <th>UserID</th>
+            <th>Medals</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% topStudents.forEach((student, index) => { %>
+            <tr>
+            <td><%= index + 1 %></td>
+            <td><%= student.id %></td>
+            <td><%= student.medals %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+        </table>
+    </div>
+    </div>
 
     <!-- Modal Structure for Tasks -->
     <div class="modal" id="taskModal">
