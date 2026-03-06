@@ -50,7 +50,27 @@ router.get('/user/:id', async (req, res) => {
   const db = await connectToDB();
   try {
     const profile = await db.collection("userprofiles").findOne({ id: parseInt(req.params.id) });
-    res.render('userpage', { userid: profile.id });
+
+    res.render('userpage', {
+      userid: profile.id,
+      department: profile.department,
+      year_of_study: profile.year_of_study,
+      medals: profile.medals
+    });
+  } finally {
+    await db.client.close();
+  }
+});
+
+router.patch('/user/:id/settings', async (req, res) => {
+  const db = await connectToDB();
+  try {
+    const userid = parseInt(req.params.id);
+    await db.collection("userprofiles").updateOne(
+      { id: userid },
+      { $set: { department: req.body.department || null, year_of_study: req.body.year || null } }
+    );
+    res.json({ success: true });
   } finally {
     await db.client.close();
   }

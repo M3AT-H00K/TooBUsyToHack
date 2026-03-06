@@ -5,6 +5,8 @@ const taskModal = document.getElementById('taskModal');
 const openModalBtn = document.querySelector('.btn-tasks');
 const closeModalBtn = document.getElementById('closeModal');
 const timeLeftDisplay = document.getElementById('timeLeft');
+const settingsForm = document.getElementById('settingsForm');
+const userid = document.body.dataset.userid;
 
 // Open modal
 openModalBtn.addEventListener('click', () => {
@@ -88,4 +90,25 @@ window.addEventListener('click', (event) => {
     if (event.target === settingsModal) {
         settingsModal.style.display = 'none';
     }
+});
+
+settingsForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const department = document.getElementById('department').value;
+  const year = document.getElementById('year').value;
+
+  const response = await fetch(`/user/${userid}/settings`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ department, year })
+  });
+
+  if (response.ok) {
+    const profileInfo = document.querySelector('.profile-info');
+    profileInfo.innerHTML = `
+      <p>Department: ${department || "Not set"}</p>
+      <p>Year of Study: ${year || "Not set"}</p>
+    `;
+    settingsModal.style.display = 'none';
+  }
 });

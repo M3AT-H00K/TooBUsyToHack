@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/userpage.css">
 </head>
-<body>
+<body data-userid="<%= userid %>">
     <h2 class ="type-writer"> Welcome, <%= userid %></h2>
 
     <button class="btn-tasks" id="taskButton"> Tasks </button>
@@ -63,17 +63,19 @@
             <form id="settingsForm">
                 <label for="department">Department</label>
                 <select id="department" name="department">
-                    <option value="cs">Computer Science</option>
-                    <option value="math">Mathematics</option>
-                    <option value="physics">Physics</option>
+                    <option value="" selected>Select Department</option>
+                    <option value="cs" <%= department === 'cs' ? 'selected' : '' %>>Computer Science</option>
+                    <option value="math" <%= department === 'math' ? 'selected' : '' %>>Mathematics</option>
+                    <option value="physics" <%= department === 'physics' ? 'selected' : '' %>>Physics</option>
                 </select>
 
                 <label for="year">Year</label>
                 <select id="year" name="year">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    <option value="" selected>Select Year</option>
+                    <option value="1" <%= year_of_study === '1' ? 'selected' : '' %>>1</option>
+                    <option value="2" <%= year_of_study === '2' ? 'selected' : '' %>>2</option>
+                    <option value="3" <%= year_of_study === '3' ? 'selected' : '' %>>3</option>
+                    <option value="4" <%= year_of_study === '4' ? 'selected' : '' %>>4</option>
                 </select>
 
                 <button type="submit">Save</button>
