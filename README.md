@@ -1,2 +1,2 @@
-# TooBUsyToHack
-Main Github Repo for the HKBU Hackathon 2026
+# TooBUsyToHack - DUEL
+
