@@ -197,6 +197,30 @@ router.post('/admin/:id/create/form', upload.single('taskZip'), async (req, res)
       await db.collection("ongoing").insertMany(ongoingEntries);
     }
 
+    if (students.length > 1) {
+      const pairs = [];
+
+      // If odd number, drop the last student
+      const usableCount = students.length % 2 === 0 ? students.length : students.length - 1;
+
+      for (let i = 0; i < usableCount; i += 2) {
+        const s1 = students[i];
+        const s2 = students[i + 1];
+
+        // Associative pair (A↔B and B↔A)
+        pairs.push({ user1: s1.id, user2: s2.id, taskName, adminId, created_at: now });
+        pairs.push({ user1: s2.id, user2: s1.id, taskName, adminId, created_at: now });
+      }
+
+      console.log("Pairs generated:", pairs);
+
+      if (pairs.length > 0) {
+        await db.collection("pairs").insertMany(pairs);
+      }
+    } else {
+      console.log("Not enough students to create pairs.");
+    }
+    // Redirect back to admin dashboard
     res.redirect(`/admin/${adminId}`);
   } catch (err) {
     console.error(err);
