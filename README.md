@@ -1,9 +1,11 @@
 # TooBUsyToHack - DUEL
 <img width="523" height="120" alt="image" src="https://github.com/user-attachments/assets/f6e1d8cd-151d-43b6-96cf-34ff8ab09450" />
 
+## Overview
+
 DUEL is the productivity enhancing website that aims to foster a sense of proactivity and productivity through the means of competition. There are two types of users that being users and admins. Admins can provide tasks with deadlines and descriptions, aimed at users from specific departments and years of study. The task when published pits two random users (within the same department and year) up against eachother in a race to finish the assignment first. Admins can award users with medals, giving them a chance to appear on the leaderboards.
 
-Key Features:
+## Key Features:
 
 -Submission time based assignment manager (creation and submission)
 
@@ -13,9 +15,11 @@ Key Features:
 
 -Retro graphics (because thats cool)
 
+## Mission statement
+
 There are so many productivity trackers on the market that design whats effectively a calendar app or a tracker, trusting the user to be proactive and productive. DUEL believes iron sharpens iron and takes an aggressive approach to productivity and proactivity, pitting two people of simillar skill up against eachother to finish the same task, with the purpose of seeing who can finish it faster. Ofcourse, we also value quality, which is why medals are assigned by the admin manually. We at DUEL believe that productivity begins when users stop fighting deadlines and start competing with eachother.
 
-Tech stack
+## Tech stack
 
 -HTML,Css (basic outlines and structuring)
 
@@ -23,17 +27,19 @@ Tech stack
 
 -MongoDB and MongoDB compass for backend database
 
-Setup and run instructions (step‑by‑step)
+## Setup and run instructions (step‑by‑step)
 
 Before talking about how to set up and run the work, there are utilities you need to know of. You can create as many users as you require by simply typing in an ID and password but those users will not be able to access the Admin side of the code as the Admin role is manually input in the backend. You will be provided with 4 Admins and 10 users. An admin can only create one task at a time until the task deadline expires and one admin has an ongoing taask until the 9th of march 11:59pm. Use the users accordingly. (NOTE: All user and admin passwords are "password")
 
-Users:
+### Users:
 
 23223413, 23234123, 22223679, 23335129, 22229876, 23136565, 22225555, 22226666, 12312312, 10100101, 56565656
 
-Admins:
+### Admins:
 
 11111111, 11111112, 11111113, 11111114
+
+### Running the code:
 
 To Run the Code, clone the repository to a local file explorer and then using command prompt cd into the project folder
 
@@ -46,6 +52,8 @@ npm start
 this will activate all the code
 
 after this you can visit http://localhost:3000/ this will take you to the login page.
+
+### In the site
 
 <img width="684" height="640" alt="image" src="https://github.com/user-attachments/assets/688e5c6f-cd8d-425d-b2d2-8f010fd36e06" />
 
@@ -81,7 +89,7 @@ Or you can check your inbox for existing submissions
 
 IF YOU HAPPEN TO WANT MORE ADMINS (NOT INTENDED FOR PURPOSES OF THE PROJECT) you may utilise the mongodb connection string in the utils-> db.js file and manually turn a user into an admin in the backend using mongodb compass.
 
-Team members (All students are from Hong Kong Baptist University)
+## Team members (All students are from Hong Kong Baptist University)
 
 23223413 Jash Premkumar SHARMA
 
@@ -93,7 +101,7 @@ Team members (All students are from Hong Kong Baptist University)
 
 24225231 Vishal Kandel
 
-Source code organized in folders (e.g. src/, backend/, frontend/).
+## Source code organized in folders (e.g. src/, backend/, frontend/).
 
 Public - javascripts, css files and one HTML file (login page)
 
@@ -107,4 +115,4 @@ Routes - index.js for routing of whole project
 
 Uploads - files exchanged in app
 
-
+## THANK YOU
