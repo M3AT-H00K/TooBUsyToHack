@@ -18,7 +18,7 @@
         <form action="/admin/<%= userid %>/create" method="POST">
         <button type="submit" class="btn-tasks">Create</button>
         </form>
-        <button class="btn-rivals" id="rivalButton">Inbox</button>
+        <button class="btn-rivals" onclick="window.location.href='/admin/<%= userid %>/inbox'">Inbox</button>
     </div>
 
     <!-- Right column: leaderboard -->

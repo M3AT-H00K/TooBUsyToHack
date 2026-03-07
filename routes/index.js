@@ -282,4 +282,62 @@ router.post('/user/:id/submit', uploadZip.single('zipFile'), async (req, res) =>
   }
 });
 
+router.get('/admin/:id/inbox', async (req, res) => {
+  const db = await connectToDB();
+  try {
+    const adminId = parseInt(req.params.id);
+
+    // Find all ongoing tasks created by this admin
+    const ongoingTasks = await db.collection("ongoing").find({ adminId }).toArray();
+
+    // Enrich with user profile and calculate time left at submission
+    const submissions = await Promise.all(
+      ongoingTasks.map(async (task) => {
+        const user = await db.collection("userprofiles").findOne({ id: task.userId });
+
+        let submissionTime = null;
+        if (task.zipFile) {
+          // Time left = deadline - modified_at
+          const diff = new Date(task.deadline) - new Date(task.modified_at);
+          if (diff > 0) {
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            submissionTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+          } else {
+            submissionTime = "Late";
+          }
+        }
+
+        return {
+          taskName: task.taskName,
+          userId: task.userId,
+          zipFile: task.zipFile,
+          submissionTime,
+          medal: "no"
+        };
+      })
+    );
+
+    res.render('Submissions', { submissions });
+  } finally {
+    await db.client.close();
+  }
+});
+
+router.patch('/admin/award/:userid', async (req, res) => {
+  const db = await connectToDB();
+  try {
+    const userid = parseInt(req.params.userid);
+    if (req.body.medal) {
+      await db.collection("userprofiles").updateOne(
+        { id: userid },
+        { $inc: { medals: 1 }, $set: { lastModified: new Date() } }
+      );
+    }
+    res.json({ success: true });
+  } finally {
+    await db.client.close();
+  }
+});
+
 module.exports = router;
