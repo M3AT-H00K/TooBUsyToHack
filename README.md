@@ -55,6 +55,8 @@ after this you can visit http://localhost:3000/ this will take you to the login 
 
 ### In the site
 
+Note:Loading some data will take time or a refresh.
+
 <img width="684" height="640" alt="image" src="https://github.com/user-attachments/assets/688e5c6f-cd8d-425d-b2d2-8f010fd36e06" />
 
 If you input a brand new user id and password or an existing user id then you will be taken to the user homepage.
@@ -65,7 +67,7 @@ here you may access the settings to update your user info. (recommended first st
 
 <img width="684" height="642" alt="image" src="https://github.com/user-attachments/assets/fc7c0b39-0f72-4932-968f-167c7911820b" />
 
-you can also access the tasks button which will show you if any user has any ongoing tasks, how much time remains and what the task is. You may also submit your task here.
+you can also access the tasks button which will show you if any user has any ongoing tasks, how much time remains and what the task is. You may also submit your task here (zip file).
 
 <img width="659" height="613" alt="image" src="https://github.com/user-attachments/assets/846e17c3-3041-4292-87ef-245881c18c42" />
 
@@ -77,11 +79,11 @@ if you logged in as an admin, you will be treated to a different webpage entirel
 
 <img width="684" height="627" alt="image" src="https://github.com/user-attachments/assets/bb98e374-41b2-4e12-b0cd-2ca7dcebdd24" />
 
-here you can create a task (if you havent already created one)
+here you can create a task (if you havent already created one)(please input all fields)
 
 <img width="631" height="620" alt="image" src="https://github.com/user-attachments/assets/4dd20376-db70-4d7d-8391-13bee3699bd2" />
 
-Or you can check your inbox for existing submissions
+Or you can check your inbox for existing submissions (submitted file and time left when submitted) (you can also award students medals)
 
 <img width="691" height="615" alt="image" src="https://github.com/user-attachments/assets/bf061174-0b2a-4d57-aa3f-31b0a468cd37" />
 
@@ -114,5 +116,7 @@ app.js - database connection
 Routes - index.js for routing of whole project
 
 Uploads - files exchanged in app
+
+NOTE: Generative AI has been used throughout the project as it was permitted by the rules.
 
 ## THANK YOU
