@@ -13,24 +13,37 @@ router.post('/user', async function (req, res) {
   const db = await connectToDB();
   try {
     const userid = parseInt(req.body.userid);
+    const password = req.body.password;
 
-    // Define new user object
+    // 🔎 Step 1: Check if user already exists
+    const existingUser = await db.collection("userlogs").findOne({ userid });
+
+    if (existingUser) {
+      // ✅ If account exists, verify password
+      if (existingUser.password === password) {
+        // Redirect based on role
+        if (existingUser.role === "admin") {
+          return res.redirect(`/admin/${userid}`);
+        } else {
+          return res.redirect(`/user/${userid}`);
+        }
+      } else {
+        // ❌ Wrong password
+        return res.status(401).send("Invalid password");
+      }
+    }
+
+    // 🆕 Step 2: If account doesn’t exist, create one
     const newUser = {
       userid,
-      password: req.body.password,
-      role: "user",
+      password, // ⚠️ Consider hashing this before storing
+      role: "user", // default role
       created_at: new Date(),
       modified_at: new Date()
     };
 
-    // ✅ Use upsert with $setOnInsert for userlogs
-    await db.collection("userlogs").updateOne(
-      { userid },                // match by userid
-      { $setOnInsert: newUser }, // only insert if not exists
-      { upsert: true }
-    );
+    await db.collection("userlogs").insertOne(newUser);
 
-    // ✅ Ensure profile exists in userprofiles (no duplicates)
     await db.collection("userprofiles").updateOne(
       { id: userid },
       {
@@ -38,7 +51,7 @@ router.post('/user', async function (req, res) {
           department: null,
           year_of_study: null,
           medals: 0,
-          lastModified: new Date() // set at creation
+          lastModified: new Date()
         }
       },
       { upsert: true }
