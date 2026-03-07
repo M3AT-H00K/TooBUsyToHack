@@ -115,14 +115,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     background-color: aqua;
 }
 #taskZip {
-    background-color: black;
-    color: aqua;
-    border: 2px solid aqua;
-    padding: 10px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.8rem;
-    cursor: pointer;
-    width: 100%;
+  display: none; /* hide the raw file input */
 }
 .file-label {
   display: inline-block;

@@ -20,41 +20,54 @@
     <!-- Task Creation Box -->
     <section class="box">
       <h2>Create Task</h2>
-      <form id="createTaskForm">
-        <label for="taskName">Task Name</label>
-        <input type="text" id="taskName" name="taskName" required>
-        <label for="taskZip" class="file-label">Attach Zip File</label>
-        <input type="file" id="taskZip" name="taskZip" accept=".zip" required hidden>
-        <label for="taskDesc">Description</label>
-        <textarea id="taskDesc" name="taskDesc" required></textarea>
+        <form id="createTaskForm" action="/admin/<%= adminId %>/create/form" method="POST" enctype="multipart/form-data">
 
-        <label for="year">Year</label>
-        <select id="year" name="year" required>
-          <option value="">Select</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select>
+            <label for="taskName">Task Name</label>
+            <input type="text" id="taskName" name="taskName" required>
 
-        <label for="dept">Department</label>
-        <select id="dept" name="dept" required>
-          <option value="">Select</option>
-          <option>CS</option>
-          <option>IT</option>
-          <option>ENG</option>
-          <option>BUS</option>
-        </select>
+            <label for="taskZip" class="file-label">Attach Zip File</label>
+            <input type="file" id="taskZip" name="taskZip" accept=".zip" required style="display:none;">
+            <span id="fileName">No file selected</span>
 
-        <label for="deadline">Deadline</label>
-        <input type="datetime-local" id="deadline" name="deadline" required>
+            <label for="taskDesc">Description</label>
+            <textarea id="taskDesc" name="taskDesc" required></textarea>
 
-        <button type="submit" class="submit-button">Create</button>
-      </form>
+            <label for="year">Year</label>
+            <select id="year" name="year" required>
+                <option value="">Select</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+
+            <label for="dept">Department</label>
+            <select id="dept" name="dept" required>
+                <option value="">Select</option>
+                <option value="physics">Physics</option>
+                <option value="cs">CS</option>
+                <option value="math">Math</option>
+            </select>
+
+            <label for="deadline">Deadline</label>
+            <input type="datetime-local" id="deadline" name="deadline" required>
+
+            <input type="hidden" name="adminId" value="<%= adminId %>">
+
+            <button type="submit" class="submit-button">Create</button>
+        </form>
     </section>
   </main>
   
   <!-- Your JavaScript file -->
   <script src="/javascripts/taskBox.js"></script>
+    <script>
+        const fileInput = document.getElementById('taskZip');
+        const fileNameDisplay = document.getElementById('fileName');
+        document.querySelector('.file-label').addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', () => {
+            fileNameDisplay.textContent = fileInput.files[0]?.name || "No file selected";
+        });
+    </script>
 </body>
 </html>

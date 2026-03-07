@@ -1,3 +1,4 @@
+const multer = require('multer');
 var express = require('express');
 var path = require('path');
 var router = express.Router();
@@ -139,6 +140,70 @@ router.get('/admin/:id/create/form', (req, res) => {
 
   // Or if serving static HTML:
   // res.sendFile(path.join(__dirname, '../public/task-create.html'));
+});
+
+
+// Multer setup
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // ensure this folder exists
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+const upload = multer({ storage: storage });
+
+// POST route: handle task creation
+router.post('/admin/:id/create/form', upload.single('taskZip'), async (req, res) => {
+  const db = await connectToDB();
+  try {
+    console.log("req.body:", req.body);
+    console.log("req.file:", req.file);
+
+    const adminId = parseInt(req.params.id);
+    const { taskName, taskDesc, year, dept, deadline } = req.body;
+
+    const now = new Date();
+    const deadlineDate = new Date(deadline);
+
+    await db.collection("tasks").insertOne({
+      adminId,
+      taskName,
+      taskDescription: taskDesc,
+      attachedFile: req.file ? req.file.path : null,
+      year: year,
+      department: dept,
+      createdAt: now,
+      deadline: deadlineDate
+    });
+
+    const students = await db.collection("userprofiles").find({
+      year_of_study: year,
+      department: dept
+    }).toArray();
+
+    const ongoingEntries = students.map(student => ({
+      taskName,
+      adminId,
+      userId: student.id,
+      zipFile: null,
+      created_at: now,
+      modified_at: now,
+      deadline: deadlineDate
+    }));
+
+    if (ongoingEntries.length > 0) {
+      await db.collection("ongoing").insertMany(ongoingEntries);
+    }
+
+    res.redirect(`/admin/${adminId}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error creating task");
+  } finally {
+    await db.client.close();
+  }
 });
 
 router.get('/user', async function (req, res) {
